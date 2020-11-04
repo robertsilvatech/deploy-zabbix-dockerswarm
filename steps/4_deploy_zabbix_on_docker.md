@@ -29,8 +29,9 @@ git clone https://github.com/robertsilvatech/deploy-zabbix-dockerswarm.git
 ### Inicianlizando a stack 
 
 ```bash
-cd <NOME_DA_PASTA_CLONADA>
+cd deploy-zabbix-dockerswarm
 docker stack deploy -c docker-compose.yaml workshop
+sh create.sh
 ```
 
 ### Listando stacks disponiveis
@@ -48,9 +49,8 @@ docker service ls
 ### Verificar logs
 
 ```bash
-docker service logs -f maratonazabbix_zabbix-server
-docker service logs -f maratonazabbix_zabbix-frontend
-docker service logs -f maratonazabbix_grafana
+docker service logs -f workshop_zabbix-server
+docker service logs -f workshop_zabbix-frontend
 ```
  
 ### Removendo stack
