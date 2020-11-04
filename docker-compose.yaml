@@ -1,0 +1,75 @@
+version: "3.7"
+
+x-deploy: &template-deploy
+  replicas: 1
+  restart_policy:
+    condition: on-failure
+  update_config:
+    parallelism: 1
+    delay: 10s
+
+services:
+  traefik:
+    image: traefik:v2.2.1
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+      update_config:
+        parallelism: 1
+        delay: 10s
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.traefik.rule=Host(`zabbix-traefik.zabbixsummit.local`)"
+        - "traefik.http.services.justAdummyService.loadbalancer.server.port=1337"
+        - "traefik.http.routers.traefik.service=api@internal"
+    ports:
+      - "80:80"
+      - "843:443"
+    networks:
+      - "monitoring-network"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command:
+      - "--api=true"
+      - "--log.level=DEBUG"
+      - "--providers.docker.endpoint=unix:///var/run/docker.sock"
+      - "--providers.docker.swarmMode=true"
+      - "--providers.file.directory=/etc/traefik/dynamic"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:centos-5.0-latest
+    env_file: 
+      - ./envs/zabbix-server/common.env
+    networks:
+      - "monitoring-network"
+    volumes:
+        - /mnt/data-docker/zabbix-server/externalscripts:/usr/lib/zabbix/externalscripts:ro
+        - /mnt/data-docker/zabbix-server/alertscripts:/usr/lib/zabbix/alertscripts:ro
+    ports:
+      - "10051:10051"
+    deploy:
+      <<: *template-deploy
+      labels:
+        - "traefik.enable=false"
+  zabbix-frontend:
+    image: zabbix/zabbix-web-nginx-mysql:centos-5.0-latest
+    env_file: 
+      - ./envs/zabbix-frontend/common.env
+    networks:
+      - "monitoring-network"
+    deploy: 
+      <<: *template-deploy
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.zbx-frontend.entrypoints=web"
+        - "traefik.http.routers.zbx-frontend.rule=Host(`zabbix-frontend.zabbixsummit.local`)"
+        - "traefik.http.services.zbx-frontend.loadbalancer.server.port=8080"
+
+networks: 
+  monitoring-network:
+    external: true
