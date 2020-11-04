@@ -32,4 +32,5 @@ haproxy - 10.0.0.66
 - [Deploy MySQL 8](steps/1_deploy_db.md)
 - [Deploy Docker Swarm](steps/2_deploy_swarm.md)
 - [Deploy NFS](steps/3_deploy_nfs-server_centos.md)
+- [Deploy Stack Zabbix](steps/4_deploy_zabbix_on_docker.md)
 

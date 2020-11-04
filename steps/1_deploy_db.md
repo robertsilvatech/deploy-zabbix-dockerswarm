@@ -217,6 +217,7 @@ create user 'zabbix'@'10.0.0.64' identified with mysql_native_password by 'Works
 grant all privileges on zabbix.* to 'zabbix'@'10.0.0.64';
 UPDATE mysql.user SET Super_Priv='Y' WHERE user='zabbix' AND host='10.0.0.64';
 flush privileges;
+quit
 ```
 
 ### Create firewall rule
