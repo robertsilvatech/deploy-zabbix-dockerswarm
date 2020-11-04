@@ -1,5 +1,7 @@
 # Deploy Zabbix in Docker Swarm
 
+`The instructions for this repository are being translated into English`
+
 ## Requirements
 
 - 1 VM MySQL
@@ -29,13 +31,5 @@ haproxy - 10.0.0.66
 
 - [Deploy MySQL 8](steps/deploy_db.md)
 - [Deploy Docker Swarm](steps/deploy_swarm.md)
+- [Deploy NFS](steps/3_deploy_nfs-server_centos.md)
 
-
-Segunda Maratona Zabbix
-
-Este repositório contem os arquivos da segunda maratona Zabbix.
-
-Para fazer o deploy do ambiente siga os seguintes procedimentos
-
-- [Deploy MySQL 8 no Centos 8](procedimentos/deploy_db.md)
-- [Deploy Stack Zabbix em Docker com Centos 8](procedimentos/deploy_zabbix_front_grafana_on_docker.md)
