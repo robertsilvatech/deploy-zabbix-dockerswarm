@@ -33,4 +33,5 @@ haproxy - 10.0.0.66
 - [Deploy Docker Swarm](steps/2_deploy_swarm.md)
 - [Deploy NFS](steps/3_deploy_nfs-server_centos.md)
 - [Deploy Stack Zabbix](steps/4_deploy_zabbix_on_docker.md)
+- [Deploy HAPROXY](steps/5_deploy_haproxy_centos.md)
 
