@@ -29,7 +29,7 @@ haproxy - 10.0.0.66
 
 # Step by step to deploy Zabbix in Docker Swarm
 
-- [Deploy MySQL 8](steps/deploy_db.md)
-- [Deploy Docker Swarm](steps/deploy_swarm.md)
+- [Deploy MySQL 8](steps/1_deploy_db.md)
+- [Deploy Docker Swarm](steps/2_deploy_swarm.md)
 - [Deploy NFS](steps/3_deploy_nfs-server_centos.md)
 
