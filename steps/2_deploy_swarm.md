@@ -18,17 +18,17 @@
     - [Ativando modo swarm no host](#ativando-modo-swarm-no-host)
     - [Inspect all docker networks](#inspect-all-docker-networks)
     - [Validating network conflict](#validating-network-conflict)
-      - [Criando uma rede ingress com range diferente](#criando-uma-rede-ingress-com-range-diferente)
-        - [Listando os nodes](#listando-os-nodes)
-        - [Alterando disponibilidade do node no swarm](#alterando-disponibilidade-do-node-no-swarm)
-        - [Removendo rede ingress atual](#removendo-rede-ingress-atual)
-        - [Criando nova rede ingress](#criando-nova-rede-ingress)
-        - [Ativando a disponibilidade do node novamente](#ativando-a-disponibilidade-do-node-novamente)
-    - [Criando rede para o nosso ambiente](#criando-rede-para-o-nosso-ambiente)
-    - [Inspect de todas as redes do docker novamente](#inspect-de-todas-as-redes-do-docker-novamente)
-  - [Adicionando outros nodes manager no cluster](#adicionando-outros-nodes-manager-no-cluster)
-    - [Pegando Token para manager](#pegando-token-para-manager)
-    - [Criando regra de firewall em todos os nodes](#criando-regra-de-firewall-em-todos-os-nodes)
+      - [Creating an ingress network with a different range](#creating-an-ingress-network-with-a-different-range)
+        - [Listing the nodes](#listing-the-nodes)
+        - [Changing node availability in swarm](#changing-node-availability-in-swarm)
+        - [Removing current network ingress](#removing-current-network-ingress)
+        - [Creating new ingress network](#creating-new-ingress-network)
+        - [Activating node availability again](#activating-node-availability-again)
+    - [Creating a network for our environment](#creating-a-network-for-our-environment)
+    - [Inspect all docker networks again](#inspect-all-docker-networks-again)
+  - [Adding other manager nodes to the cluster](#adding-other-manager-nodes-to-the-cluster)
+    - [Getting Token for manager](#getting-token-for-manager)
+    - [Creating firewall rule on all nodes](#creating-firewall-rule-on-all-nodes)
 
 ## Timezone
 
@@ -122,7 +122,7 @@ firewall-cmd --reload
 ### Ativando modo swarm no host
 
 ```bash
-docker swarm init --advertise-addr 10.0.0.62
+docker swarm init --advertise-addr 10.0.0.64
 ```
 
 ### Inspect all docker networks
@@ -152,25 +152,25 @@ ens18: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-#### Criando uma rede ingress com range diferente
+#### Creating an ingress network with a different range
 
-##### Listando os nodes
+##### Listing the nodes
 
 ```bash
 docker node ls
 ```
 
-##### Alterando disponibilidade do node no swarm
+##### Changing node availability in swarm
 
-`NESTE MOMENTO ELE NÃO IRA INICIAR NOVOS SERVIÇOS`
+`AT THIS TIME IT WILL NOT START NEW SERVICES`
 
-`<NODE_NAME> É O NOME DO HOSTNAME QUE RETORNA NO COMANDO docker node ls`
+`<NODE_NAME> IT'S THE NAME OF THE HOSTNAME THAT RETURNS ON THE COMMAND docker node ls`
 
 ```bash
 docker node update --availability drain <NODE_NAME>
 ```
 
-##### Removendo rede ingress atual
+##### Removing current network ingress
 
 ```bash
 $ docker network rm ingress
@@ -186,7 +186,7 @@ impaired.
 Are you sure you want to continue? [y/N]
 ```
 
-##### Criando nova rede ingress
+##### Creating new ingress network
 
 ```bash
 docker network create \
@@ -198,35 +198,33 @@ docker network create \
 ingress
 ```
 
-##### Ativando a disponibilidade do node novamente
-
-`<NODE_NAME> É O NOME DO HOSTNAME QUE RETORNA NO COMANDO docker node ls`
+##### Activating node availability again
 
 ```bash
 docker node update --availability active <NODE_NAME>
 ```
 
-### Criando rede para o nosso ambiente
+### Creating a network for our environment
 
 ```bash
 docker network create --driver overlay monitoring-network
 ```
 
-### Inspect de todas as redes do docker novamente
+### Inspect all docker networks again
 
 ```bash
 for net in `docker network ls |grep -v NAME | awk '{print $2}'`;do ipam=`docker network inspect $net --format {{.IPAM}}` && echo $net - $ipam; done
 ```
 
-## Adicionando outros nodes manager no cluster
+## Adding other manager nodes to the cluster
 
-### Pegando Token para manager
+### Getting Token for manager
 
 ```bash
 docker swarm join-token manager
 ```
 
-### Criando regra de firewall em todos os nodes
+### Creating firewall rule on all nodes
 
 ```bash
 firewall-cmd --parmanent --add-port=2377/tcp
