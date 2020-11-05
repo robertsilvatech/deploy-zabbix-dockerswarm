@@ -227,7 +227,7 @@ docker swarm join-token manager
 ### Creating firewall rule on all nodes
 
 ```bash
-firewall-cmd --parmanent --add-port=2377/tcp
+firewall-cmd --permanent --add-port=2377/tcp
 firewall-cmd --permanent --add-port=7946/tcp
 firewall-cmd --permanent --add-port=7946/udp
 firewall-cmd --permanent --add-port=4789/udp

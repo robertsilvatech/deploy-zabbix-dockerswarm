@@ -22,7 +22,7 @@ dnf install -y git
 ### Clonando depositório
 
 ```bash
-cd ~/
+cd /mnt/data-docker
 git clone https://github.com/robertsilvatech/deploy-zabbix-dockerswarm.git
 ```
 
