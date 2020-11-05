@@ -39,12 +39,12 @@ haproxy -f haproxy.cfg
 
 firewall-cmd --permanent --add-port=80/tcp
 
-firewall-cmd --permanent --add-port=3000/tcp
-firewall-cmd --permanent --add-port=8080/tcp
-firewall-cmd --permanent --add-port=8081/tcp
-firewall-cmd --permanent --add-port=8082/tcp
-firewall-cmd --permanent --add-port=10051/tcp
-firewall-cmd --reload
+firewall-cmd --permanent --add-port=3000/tcp. 
+firewall-cmd --permanent --add-port=8080/tcp. 
+firewall-cmd --permanent --add-port=8081/tcp. 
+firewall-cmd --permanent --add-port=8082/tcp. 
+firewall-cmd --permanent --add-port=10051/tcp. 
+firewall-cmd --reload. 
 
 ps aux |grep haproxy
 kill -9 PID_HAPROXY
