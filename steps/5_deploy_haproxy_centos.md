@@ -41,11 +41,21 @@ haproxy -f haproxy.cfg
 - Create firewall rule
 ```
 firewall-cmd --permanent --add-port=80/tcp
+<<<<<<< HEAD
 firewall-cmd --permanent --add-port=10051/tcp
 firewall-cmd --reload
 ```
 
 - Look for the HAPROXY process and kill it 
+=======
+
+firewall-cmd --permanent --add-port=3000/tcp. 
+firewall-cmd --permanent --add-port=8080/tcp. 
+firewall-cmd --permanent --add-port=8081/tcp. 
+firewall-cmd --permanent --add-port=8082/tcp. 
+firewall-cmd --permanent --add-port=10051/tcp. 
+firewall-cmd --reload. 
+>>>>>>> 40ee159e7e56a3572a957c656b9dd2291ead66f5
 
 ```
 ps aux |grep haproxy
@@ -58,4 +68,7 @@ kill -9 PID_HAPROXY
 ```
 systemctl start haproxy
 systemctl status haproxy
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 40ee159e7e56a3572a957c656b9dd2291ead66f5
