@@ -58,7 +58,3 @@ kill -9 PID_HAPROXY
 ```
 systemctl start haproxy
 systemctl status haproxy
-<<<<<<< HEAD
-```
-=======
->>>>>>> 40ee159e7e56a3572a957c656b9dd2291ead66f5
